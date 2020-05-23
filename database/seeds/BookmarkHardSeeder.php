@@ -24,6 +24,7 @@ class BookmarkHardSeeder extends Seeder
                 'keywords' => $faker->words($nb = 5, $asText = true),
                 'favicon' => null,
                 'password' => (bool)rand(0, 1) ? null : Hash::make('password'), // password,
+                'created_at' => $faker->dateTimeThisYear()->format("Y-m-d H:i:s")
             ];
         }
 
@@ -37,6 +38,7 @@ class BookmarkHardSeeder extends Seeder
                 'keywords' => $fakers[rand(0, $total - 1)]['keywords'],
                 'favicon' => null,
                 'password' => $fakers[rand(0, $total - 1)]['password'],
+                'created_at' =>$fakers[rand(0, $total - 1)]['created_at'],
             ];
             $data[] = $item;
         }

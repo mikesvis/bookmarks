@@ -17,7 +17,7 @@ class CreateBookmarksTable extends Migration
             $table->id();
             $table->string('url');
             $table->string('title')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('keywords')->nullable();
             $table->string('favicon')->nullable();
             $table->string('password')->nullable();

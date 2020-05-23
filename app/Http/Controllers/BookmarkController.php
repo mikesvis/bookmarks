@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Parser;
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Bookmark\CreateBookmarkRequest;
 
 class BookmarkController extends Controller
 {
@@ -16,7 +19,7 @@ class BookmarkController extends Controller
     {
         $bookmarks = Bookmark::sortable(['created_at' => 'desc'])->paginate(20);
 
-        return view('home', compact('bookmarks'));
+        return view('bookmark.index', compact('bookmarks'));
     }
 
     /**
@@ -26,7 +29,7 @@ class BookmarkController extends Controller
      */
     public function create()
     {
-        //
+        return  view('bookmark.create');
     }
 
     /**
@@ -35,9 +38,25 @@ class BookmarkController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateBookmarkRequest $request)
     {
-        //
+
+        $bookmark = new Bookmark;
+        $parser = new Parser($request->url);
+
+        $bookmark->url = $parser->getUrl();
+        $bookmark->title = $parser->getData('title');
+        $bookmark->description = $parser->getData('description');
+        $bookmark->keywords = $parser->getData('keywords');
+        $bookmark->favicon = $parser->getData('favicon');
+
+        if(!empty($request->password))
+            $bookmark->password = Hash::make($request->password);
+
+        $bookmark->save();
+
+        return redirect(route('bookmark.show', $bookmark))->withMessage('Закладка добавлена');
+
     }
 
     /**
@@ -46,30 +65,7 @@ class BookmarkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function show(Bookmark $bookmark)
     {
         //
     }
@@ -80,7 +76,7 @@ class BookmarkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Bookmark $bookmark)
     {
         //
     }
