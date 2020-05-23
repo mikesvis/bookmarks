@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'BookmarkController@index');
+Route::get('/create', 'BookmarkController@create')->name('bookmark.create');
+Route::get('/bookmark/{bookmark}', 'BookmarkController@show')->name('bookmark.show');
