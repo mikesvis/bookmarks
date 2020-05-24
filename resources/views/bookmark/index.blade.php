@@ -11,7 +11,14 @@
     @include('components.message')
 
     <div class="my-4">
-        <a href="{{ route('bookmark.create') }}" class="btn btn-success">Добавить закладку</a>
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                <a href="{{ route('bookmark.create') }}" class="btn btn-success">Добавить закладку</a>
+            </div>
+            <div class="col-auto">
+                <a href="{{ route('bookmark.export') }}" class="btn btn-outline-success">Экпорт</a>
+            </div>
+        </div>
     </div>
 
     {{-- <div class="my-4">

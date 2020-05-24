@@ -6,6 +6,8 @@ use App\Helpers\Parser;
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\BookmarkExportCollection;
 use App\Http\Requests\Bookmark\CreateBookmarkRequest;
 use App\Http\Requests\Bookmark\DeleteBookmarkRequest;
 
@@ -84,5 +86,19 @@ class BookmarkController extends Controller
         request()->session()->flash('message', 'Закладка удалена');
 
         return response()->json(['redirect' => route('bookmark.index'), 200]);
+    }
+
+    /**
+     * Export bookmarks to excel
+     *
+     * @return void
+     */
+    public function export()
+    {
+        $bookmarks = Bookmark::orderBy('created_at', 'asc');
+
+        $excelName = ['bookmarks'];
+
+        return Excel::download(new BookmarkExportCollection($bookmarks), implode("-", $excelName).'-'.date('Ymd-His').'.xlsx');
     }
 }
