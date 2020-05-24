@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Parser;
+use App\Helpers\Search;
 use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,11 +19,22 @@ class BookmarkController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $bookmarks = Bookmark::sortable(['created_at' => 'desc'])->paginate(20);
+        $bookmarks = Bookmark::sortable(['created_at' => 'desc']);
 
-        return view('bookmark.index', compact('bookmarks'));
+        $search = $request->search;
+        $speedtest = null;
+
+        if(!empty($search)){
+            $searcher = new Search($bookmarks, $search);
+            $bookmarks = $searcher->bookmarks;
+        }
+
+        $bookmarks = $bookmarks->paginate(20)->appends('search', $search);
+
+
+        return view('bookmark.index', compact('bookmarks', 'search'));
     }
 
     /**

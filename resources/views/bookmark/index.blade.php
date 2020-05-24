@@ -21,9 +21,16 @@
         </div>
     </div>
 
-    {{-- <div class="my-4">
-        search form goes here
-    </div> --}}
+    <div class="my-4">
+        <form action="{{ route('bookmark.index') }}" method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" value="{{ $search }}" placeholder="Поиск по закладкам">
+                <div class="input-group-append">
+                    <button class="btn btn-success" type="submit">Найти</button>
+                </div>
+            </div>
+        </form>
+    </div>
 
     <div class="my-4">
 
@@ -51,7 +58,7 @@
                 @empty
                     <tr>
                         <td colspan="4" class="text-center">
-                            Закладок пока нет
+                            Закладок нет
                         </th>
                     </tr>
                 @endforelse
