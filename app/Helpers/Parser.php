@@ -147,7 +147,7 @@ class Parser
 
         preg_match_all($pattern, $this->rawSource, $matches);
 
-        $result = $matches[1][0] ?? 'У страницы не найден тег '.$tag;
+        $result = $matches[1][0] ?? null;
 
         return $result;
     }
@@ -164,7 +164,7 @@ class Parser
 
         $tags = get_meta_tags(stream_get_meta_data($this->rawSourceFile)['uri']);
 
-        $result = $tags[$meta] ?? 'У страницы не найден мета тег '.$meta;
+        $result = $tags[$meta] ?? null;
 
         return $result;
     }

@@ -10981,3 +10981,11 @@ table.layout-fixed td.ellipsis {
   text-overflow: ellipsis;
 }
 
+.w-200px {
+  width: 200px;
+}
+
+.mw-18px {
+  width: 18px;
+}
+

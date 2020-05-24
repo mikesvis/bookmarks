@@ -30,7 +30,7 @@
             <tbody>
                 @forelse ($bookmarks as $item)
                     <tr>
-                        <td class="text-center">{{ $item->created_at }}</th>
+                        <td class="text-center">{{ $item->created_at_date }}</th>
                         <td>
                             @if (!empty($item->favicon))
                                 <img src="{{ $item->favicon }}" class="w-100">
