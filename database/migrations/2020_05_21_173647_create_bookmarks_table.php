@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 class CreateBookmarksTable extends Migration
 {
@@ -22,12 +23,9 @@ class CreateBookmarksTable extends Migration
             $table->string('favicon')->nullable();
             $table->string('password')->nullable();
             $table->timestamps();
-
-            $table->index('url');
-            $table->index('title');
-            $table->index('description');
-            $table->index('keywords');
         });
+
+        DB::statement('ALTER TABLE bookmarks ADD FULLTEXT search(url, title, description, keywords)');
     }
 
     /**
