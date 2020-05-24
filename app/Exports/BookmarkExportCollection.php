@@ -58,6 +58,8 @@ class BookmarkExportCollection implements FromCollection, WithMapping, WithHeadi
     */
     public function collection()
     {
+        set_time_limit(0);
+
         return $this->bookmarks->get();
     }
 }
