@@ -17,3 +17,4 @@ Route::get('/', 'BookmarkController@index')->name('bookmark.index');
 Route::get('/create', 'BookmarkController@create')->name('bookmark.create');
 Route::get('/bookmark/{bookmark}', 'BookmarkController@show')->name('bookmark.show');
 Route::post('/bookmark', 'BookmarkController@store')->name('bookmark.store');
+Route::delete('/bookmark/{bookmark}', 'BookmarkController@destroy')->name('bookmark.destroy');

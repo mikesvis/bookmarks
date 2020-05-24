@@ -7,6 +7,7 @@ use App\Models\Bookmark;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Bookmark\CreateBookmarkRequest;
+use App\Http\Requests\Bookmark\DeleteBookmarkRequest;
 
 class BookmarkController extends Controller
 {
@@ -76,8 +77,12 @@ class BookmarkController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bookmark $bookmark)
+    public function destroy(DeleteBookmarkRequest $request, Bookmark $bookmark)
     {
-        //
+        $bookmark->delete();
+
+        request()->session()->flash('message', 'Закладка удалена');
+
+        return response()->json(['redirect' => route('bookmark.index'), 200]);
     }
 }

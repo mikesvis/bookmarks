@@ -8,6 +8,8 @@
 
     <h1>Закладки</h1>
 
+    @include('components.message')
+
     <div class="my-4">
         <a href="{{ route('bookmark.create') }}" class="btn btn-success">Добавить закладку</a>
     </div>
